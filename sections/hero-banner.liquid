@@ -1,0 +1,113 @@
+{% liquid
+assign desktopImage = section.settings.desktop_image
+assign mobileImage = section.settings.mobile_image
+assign heading = section.settings.heading
+assign description = section.settings.description
+assign buttonLink = section.settings.button_link
+assign buttonText = section.settings.button_text
+
+%}
+<link rel="stylesheet" href="{{'hero-banner.css' |  asset_url }}">
+<style>
+
+</style>
+
+<section id="hero_banner_{{section_id}}" class="hero-banner-main-wrapper">
+<div class="page-width">
+    <div class="hero-banner-wrapper position-rel">
+        <div class="hero-image-wrapper">
+            {% render 'responsive-picture', class:'hero-banner-image', desktopImage:desktopImage, mobileImage:mobileImage %}
+        </div>
+    </div>
+    <div class="hero-content-wrapper position-abs hero-content-flex-wrap">
+        <div class="hero-content">
+            <h2>{{heading}}</h2>
+            <p>{{description}}</p>
+            <a href="{{buttonLink}}">
+                <button class="hero-banner-button">{{buttonText}}</button>
+            </a>
+
+        </div>
+    </div>
+</div>
+</section> 
+
+
+
+{% schema %}
+    {
+        "name":"Hero-Banner",
+        "tag":"section",
+        "class":"hero-banner",
+        "settings":[
+        {
+            "type":"image_picker",
+            "id":"desktop_image",
+            "label":"Desktop Image"
+        },
+        {
+            "type":"image_picker",
+            "id":"mobile_image",
+            "label":"Mobile Image"
+        },
+        {
+            "type":"text",
+            "id":"heading",
+            "label":"Heading",
+            "placeholder":"Enter your heading title",
+            "default":"John Wick 3 : Parabellum"
+        },
+        {
+            "type":"richtext",
+            "id":"description",
+            "label":"Description",
+            "default":"<p>John Wick is on the run after killing a member of the international assassins' guild, and with a $14 million price tag on his head, he is the target of hit men and women everywhere.</p>"
+        },
+        {
+            "type":"url",
+            "id":"button_link",
+            "label":"Button Link",
+            "default":"/collections"
+        },
+        {
+            "type":"text",
+            "id":"button_text",
+            "label":"Button Text",
+            "default":"Watch Trailer"
+        },
+        {
+            "type":"color",
+            "id":"button_bg",
+            "label":"Button Background Color",
+            "default":"#BE123C"
+        },
+        {
+            "type":"color",
+            "id":"button_text_color",
+            "label":"Button Text Color",
+            "default":"#FFFFFF"
+        },
+        {
+            "type": "select",
+            "label": "Text Alignment",
+            "id": "text_alignment",
+            "options": [
+                { "value": "top-left", "label": "Top-Left" },
+                { "value": "top-center", "label": "Top-Center" },
+                { "value": "top-right", "label": "Top-Right" },
+                { "value": "center-left", "label": "Center-Left"},
+                { "value": "center", "label": "Center"},
+                { "value": "center-right", "label": "Center-Right"},
+                { "value": "bottom-left", "label": "Bottom-Left"},
+                { "value": "bottom-center", "label": "Bottom-Center"},
+                { "value": "bottom-right", "label": "Bottom-Right"}
+            ],
+            "default": "center"
+        }
+        ],
+        "presets": [{
+            "name": "Hero Banner Section"
+        }]
+
+    }
+{% endschema %}
