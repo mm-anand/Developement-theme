@@ -7,10 +7,21 @@ assign buttonLink = section.settings.button_link
 assign buttonText = section.settings.button_text
 
 %} {% endcomment %}
+
+{% assign timing = section.settings.change_slides_timing | times: 1000 %} 
+console.log(timing)
+
 <link rel="stylesheet" href="{{'hero-banner.css' |  asset_url }}">
+
+<script src="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
+"></script>
+<link href="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
+" rel="stylesheet">
 <style>
     .heading{
-        color: {{section.blocks.settings.heading_text_color}};
+        color:{{section.blocks.settings.heading_text_color}};
     }
     .description {
         color:{{section.blocks.settings.description_text_color}}
@@ -18,41 +29,54 @@ assign buttonText = section.settings.button_text
     .hero-banner-button{
         background-color: {{section.blocks.settings.button_bg}};
         color:{{section.blocks.settings.button_text_color}}
-        
-
     }
 
 </style>
 <div class="page-width">
-{% for block in section.blocks %}
-    <div class="hero-banner-wrapper position-rel">
-        <div class="hero-image-wrapper">
-            {% render 'responsive-picture', class:'hero-banner-image', desktopImage:block.settings.desktopImage, mobileImage:block.settings.mobileImage %}
-        </div>
-        <div class="hero-content-wrapper position-abs {{block.settings.text_alignment}} hero-content-flex-wrap">
-            <div class="hero-content">
-                <h2 class="heading">{{block.settings.heading}}</h2>
-                <div class="description">{{block.settings.description}}</div>
-                
-                <a href="{{block.settings.button_link}}">
-                    
-                    <button class="hero-banner-button">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM9.5547 7.16795C9.24784 6.96338 8.8533 6.94431 8.52814 7.11833C8.20298 7.29235 8 7.63121 8 8V12C8 12.3688 8.20298 12.7077 8.52814 12.8817C8.8533 13.0557 9.24784 13.0366 9.5547 12.8321L12.5547 10.8321C12.8329 10.6466 13 10.3344 13 10C13 9.66565 12.8329 9.35342 12.5547 9.16795L9.5547 7.16795Z"
-                                    fill="white" />
-                            </svg>
-                        </span><span class="hero-banner-button-text">{{block.settings.button_text}}</span></button>
-                </a>
-        
+<section class="splide" aria-label="Splide Basic HTML Example">
+    <div class="splide__track">
+        <ul class="splide__list">
+            {% for block in section.blocks %}
+            <div class="hero-banner-wrapper position-rel splide__slide">
+                <div class="hero-image-wrapper">
+                    {% render 'responsive-picture', class:'hero-banner-image', desktopImage:block.settings.desktop_image,
+                    mobileImage:block.settings.mobile_image %}
+                </div>
+                <div class="hero-content-wrapper position-abs {{block.settings.text_alignment}} hero-content-flex-wrap">
+                    <div class="hero-content">
+                        <h2 class="heading">{{block.settings.heading}}</h2>
+                        <div class="description">{{block.settings.description}}</div>
+            
+                        <a href="{{block.settings.button_link}}">
+            
+                            <button class="hero-banner-button">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM9.5547 7.16795C9.24784 6.96338 8.8533 6.94431 8.52814 7.11833C8.20298 7.29235 8 7.63121 8 8V12C8 12.3688 8.20298 12.7077 8.52814 12.8817C8.8533 13.0557 9.24784 13.0366 9.5547 12.8321L12.5547 10.8321C12.8329 10.6466 13 10.3344 13 10C13 9.66565 12.8329 9.35342 12.5547 9.16795L9.5547 7.16795Z"
+                                            fill="white" />
+                                    </svg>
+                                </span><span class="hero-banner-button-text">{{block.settings.button_text}}</span></button>
+                        </a>
+            
+                    </div>
+                </div>
             </div>
-        </div>
+            {% endfor %}
+        </ul>
     </div>
-    {% endfor %}
+</section>
+
     
 </div>
+<script>
+    new Splide('.splide',{
+        type:"loop",
+        autoplay:true,
+        interval:{{ timing }},
 
+    }).mount();
+</script>
 
 
 {% schema %}
@@ -61,6 +85,80 @@ assign buttonText = section.settings.button_text
         "tag":"section",
         "class":"hero-banner",
         "settings":[
+            {
+                "type":"select",
+                "id":"layout",
+                "label":"Layout",
+                "options":[
+                    {
+                        "value":"full width", "label":"Full width"
+                        },
+                    {
+                        "value": "page-width", "label":"Grid" 
+                    }
+                ]
+            },
+            {
+                "type": "select",
+                "id":"slide_height",
+                "label":"Slide height",
+                "options": [
+                    {
+                        "value":"adapt to first image", "label":"Adapt to first image"
+                    },
+                    {
+                        "value":"small","label":"Small"
+                    },
+                    {"value": "medium","label":"Medium"},
+                    {"value": "large","label":"Large"}
+                ]
+            },
+            {
+                "type": "select",
+                "id": "pagination_style",
+                "label": "Pagination style",
+                "options": [
+                    {
+                        "value":"dots","label":"Dots"
+                    },
+                    {
+                        "value": "counter","label":"Counter"
+                    },
+                    {"value": "number","label":"Number"}
+                ]
+            },
+            {
+                "type": "checkbox",
+                "id": "auto_rotate_slides",
+                "label": "Auto-rotate slides"
+            },
+            {
+                "type":"range",
+                "id": "change_slides_timing",
+                "label": "Change slides every",
+                "min": 3,
+                "max": 9,
+                "step": 1,
+                "unit": "sec",
+                "default": 5
+            },
+            {
+            "type": "header",
+            "content": "Animations"
+             },
+             {
+                "type": "select",
+                "id": "image_behaviour",
+                "label": "Image Behaviour",
+                "options": [
+                    {
+                        "value": "none", "label":"None"
+                    },
+                    {
+                        "value": "ambient movement","label":"Ambient Movement"
+                    }
+                ]
+             }
      
         ],
     "blocks": [
@@ -150,10 +248,10 @@ assign buttonText = section.settings.button_text
     ]
         }
            
-        ],
-        "presets": [{
-            "name": "Hero Banner Section"
+        ],"presets": [{
+        "name": "Hero Banner Block"
         }]
+        
 
     }
 {% endschema %}
