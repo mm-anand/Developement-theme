@@ -46,10 +46,24 @@
         "padding_top": 4,
         "padding_bottom": 4
       }
+    },
+    "hero_banner_P4jwhG": {
+      "type": "hero-banner",
+      "settings": {
+        "desktop_image": "shopify:\/\/shop_images\/Poster.png",
+        "heading": "John Wick 3 : Parabellum",
+        "description": "<p>John Wick is on the run after killing a member of the international assassins' guild, and with a $14 million price tag on his head, he is the target of hit men and women everywhere.<\/p>",
+        "button_link": "shopify:\/\/collections",
+        "button_text": "Watch Trailer",
+        "button_bg": "#BE123C",
+        "button_text_color": "#FFFFFF",
+        "text_alignment": "center"
+      }
     }
   },
   "order": [
     "announcement-bar",
-    "header"
+    "header",
+    "hero_banner_P4jwhG"
   ]
 }
