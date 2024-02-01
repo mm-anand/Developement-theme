@@ -20,10 +20,10 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
 " rel="stylesheet">
 <style>
     .heading{
-        color:{{section.blocks.settings.heading_text_color}};
+        color:{{blocks.settings.heading_text_color}};
     }
     .description {
-        color:{{section.blocks.settings.description_text_color}}
+        color:{{blocks.settings.description_text_color}}
     }
     .hero-banner-button{
         background-color: {{section.blocks.settings.button_bg}};
@@ -72,7 +72,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
     new Splide('.splide',{
         type:"loop",
         autoplay:true,
-        interval:{{ timing }},
+        interval:3000,
 
     }).mount();
 </script>
