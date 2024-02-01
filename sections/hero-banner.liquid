@@ -1,15 +1,14 @@
-{% comment %} {% liquid
-assign desktopImage = section.settings.desktop_image
-assign mobileImage = section.settings.mobile_image
-assign heading = section.settings.heading
-assign description = section.settings.description
-assign buttonLink = section.settings.button_link
-assign buttonText = section.settings.button_text
+{% liquid
+assign desktopImage = section.blocks.settings.desktop_image
+assign mobileImage = section.blocks.settings.mobile_image
+assign heading = section.blocks.settings.heading
+assign description = section.blocks.settings.description
+assign buttonLink = section.blocks.settings.button_link
+assign buttonText = section.blocks.settings.button_text
 
-%} {% endcomment %}
+%}
 
-{% assign timing = section.settings.change_slides_timing | times: 1000 %} 
-console.log(timing)
+{% assign timing = section.settings.change_slides_timing | times: 1000 %}
 
 <link rel="stylesheet" href="{{'hero-banner.css' |  asset_url }}">
 
@@ -32,7 +31,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
     }
 
 </style>
-<div class="page-width">
+<div class="{{section.settings.layout}}">
 <section class="splide" aria-label="Splide Basic HTML Example">
     <div class="splide__track">
         <ul class="splide__list">
@@ -91,12 +90,13 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                 "label":"Layout",
                 "options":[
                     {
-                        "value":"full width", "label":"Full width"
+                        "value":"full-width", "label":"Full width"
                         },
                     {
                         "value": "page-width", "label":"Grid" 
                     }
-                ]
+                ],
+                "default":"page-width"
             },
             {
                 "type": "select",
