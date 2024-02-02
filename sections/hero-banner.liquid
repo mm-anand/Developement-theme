@@ -1,4 +1,4 @@
-{% liquid
+{% comment %} {% liquid
 assign desktopImage = section.blocks.settings.desktop_image
 assign mobileImage = section.blocks.settings.mobile_image
 assign heading = section.blocks.settings.heading
@@ -6,9 +6,9 @@ assign description = section.blocks.settings.description
 assign buttonLink = section.blocks.settings.button_link
 assign buttonText = section.blocks.settings.button_text
 
-%}
+%} {% endcomment %}
 
-{% assign timing = section.settings.change_slides_timing | times: 1000 %}
+
 
 <link rel="stylesheet" href="{{'hero-banner.css' |  asset_url }}">
 
@@ -19,20 +19,44 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
 https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
 " rel="stylesheet">
 <style>
-    .heading{
-        color:{{blocks.settings.heading_text_color}};
+    /* .heading{
+        color:{{section.blocks.settings.heading_text_color}};
+    
     }
     .description {
-        color:{{blocks.settings.description_text_color}}
+        color:{{section.blocks.settings.description_text_color}}
     }
     .hero-banner-button{
         background-color: {{section.blocks.settings.button_bg}};
         color:{{section.blocks.settings.button_text_color}}
-    }
+    } */
 
 </style>
+
+{% assign timing = section.settings.change_slides_timing | times: 1000 %}
+{% assign autoRotate= section.settings.auto_rotate_slides %}
+
 <div class="{{section.settings.layout}}">
-<section class="splide" aria-label="Splide Basic HTML Example">
+<section class="splide" aria-label="Splide Basic HTML Example" data-slider-timing="{{ timing }}" data-slider-autoRotate="{{ autoRotate }}">
+
+{% comment %} Adding custom arrows: {% endcomment %}
+    <div class="splide__arrows custom__arrows">
+        <button class="splide__arrow splide__arrow--prev custom__arrow--prev">
+      <svg width="27" height="22" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 14L26 14" stroke="currentColor" stroke-width="3" stroke-linecap="square"></path>
+                    <path d="M17.6514 3L29.6514 14L17.6514 25" stroke="currentColor" stroke-width="3" stroke-linecap="square">
+                    </path>
+                </svg>
+        </button>
+        <button class="splide__arrow splide__arrow--next custom__arrow--next">
+            <svg width="27" height="22" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 14L26 14" stroke="currentColor" stroke-width="3" stroke-linecap="square"></path>
+                    <path d="M17.6514 3L29.6514 14L17.6514 25" stroke="currentColor" stroke-width="3" stroke-linecap="square">
+                    </path>
+                </svg>
+        </button>
+    </div>
+    {% comment %} {{ autoRotate }} {% endcomment %}
     <div class="splide__track">
         <ul class="splide__list">
             {% for block in section.blocks %}
@@ -46,16 +70,29 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                         <h2 class="heading">{{block.settings.heading}}</h2>
                         <div class="description">{{block.settings.description}}</div>
             
-                        <a href="{{block.settings.button_link}}">
+
+                        <button class="hero-banner-button-wrapper">
+                        <a href="{{block.settings.button_link}}" class="hero-banner-button">
             
-                            <button class="hero-banner-button">
+                                <span class="hero-banner-button-text">{{block.settings.button_text}}</span>
                                 <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM9.5547 7.16795C9.24784 6.96338 8.8533 6.94431 8.52814 7.11833C8.20298 7.29235 8 7.63121 8 8V12C8 12.3688 8.20298 12.7077 8.52814 12.8817C8.8533 13.0557 9.24784 13.0366 9.5547 12.8321L12.5547 10.8321C12.8329 10.6466 13 10.3344 13 10C13 9.66565 12.8329 9.35342 12.5547 9.16795L9.5547 7.16795Z"
-                                            fill="white" />
+                                
+                                    <svg class="icon icon-button-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_2071_16434)">
+                                            <path d="M2.24268 12.2427L12.1422 2.34326" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+                                            </path>
+                                            <path d="M4.36377 1.63617H12.8491V10.1215" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+                                            </path>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_2071_16434">
+                                                <rect width="14" height="14" fill="currentColor"></rect>
+                                            </clipPath>
+                                        </defs>
                                     </svg>
-                                </span><span class="hero-banner-button-text">{{block.settings.button_text}}</span></button>
+                                </button>
+                                </span>
                         </a>
             
                     </div>
@@ -63,18 +100,56 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
             </div>
             {% endfor %}
         </ul>
+    
+    </div>
+    <div class="splide__pagination">
     </div>
 </section>
 
     
 </div>
+{% comment %} TODO: Check autorotate slides {% endcomment %}
 <script>
-    new Splide('.splide',{
-        type:"loop",
-        autoplay:true,
-        interval:3000,
+    new Splide('.splide', {
+        type: "loop",
+        autoplay: document.querySelector('.splide').dataset.sliderAutoRotate,
+        interval: parseInt(document.querySelector('.splide').dataset.sliderTiming), classes: {
+            arrows: 'splide__arrows custom__arrows',
+            prev: 'splide__arrow--prev custom__arrows-prev',
+            next: 'splide__arrow--next custom__arrows-next',
+        },
+        pagination:false,
 
     }).mount();
+
+
+
+     // Custom pagination rendering
+        var paginationElement = document.querySelector('.splide__pagination');
+        var slidesCount = splide.length;
+
+        for (var i = 1; i <= slidesCount; i++) {
+            var pageElement = document.createElement('div');
+            pageElement.className = 'splide__pagination__page';
+            pageElement.textContent = i;
+            paginationElement.appendChild(pageElement);
+
+            // Handle click event to move to the corresponding slide
+            pageElement.addEventListener('click', function (event) {
+                var pageNumber = parseInt(event.target.textContent);
+                splide.go(pageNumber - 1); // Splide indices are zero-based
+            });
+        }
+
+        // Update pagination on slide change
+        splide.on('moved', function (index) {
+            var paginationPages = document.querySelectorAll('.splide__pagination__page');
+            paginationPages.forEach(function (page, pageIndex) {
+                page.classList.toggle('splide__pagination__page--active', index === pageIndex);
+            });
+        });
+
+
 </script>
 
 
@@ -219,7 +294,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
     "type":"color",
     "id":"button_bg",
     "label":"Button Background Color",
-    "default":"#BE123C"
+    "default":"rgb(46,46,46)"
     },
     {
     "type":"color",
