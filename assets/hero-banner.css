@@ -110,6 +110,7 @@ a {
 .splide__arrow {
   align-items: center;
   background: none !important;
+  color: white;
   cursor: pointer;
   display: flex;
   height: 4em;

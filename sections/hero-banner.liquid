@@ -34,10 +34,11 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
 </style>
 
 {% assign timing = section.settings.change_slides_timing | times: 1000 %}
-{% assign autoRotate= section.settings.auto_rotate_slides %}
+{% comment %} {% assign autoRotate= section.settings.auto_rotate_slides %} {% endcomment %}
+{% assign ambientMovement=section.settings.image_behaviour %}
 
 <div class="{{section.settings.layout}}">
-<section class="splide" aria-label="Splide Basic HTML Example" data-slider-timing="{{ timing }}" data-slider-autoRotate="{{ autoRotate }}">
+<section class="splide" aria-label="Splide Basic HTML Example" data-slider-timing="{{ timing }}" data-slider-ambientMovement="{{ambientMovement}}">
 
 {% comment %} Adding custom arrows: {% endcomment %}
     <div class="splide__arrows custom__arrows">
@@ -56,7 +57,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                 </svg>
         </button>
     </div>
-    {% comment %} {{ autoRotate }} {% endcomment %}
+    {{section.settings.slide_height}}
     <div class="splide__track">
         <ul class="splide__list">
             {% for block in section.blocks %}
@@ -108,21 +109,37 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
 
     
 </div>
-{% comment %} TODO: Check autorotate slides {% endcomment %}
 <script>
+    
+    var isAutoRotate= /^true$/i.test({{ section.settings.auto_rotate_slides }}) //converts to boolean
+    // console.log(isAutoRotate, typeof(isAutoRotate))
+    // console.log({{ section.settings.image_behaviour }})
+    // var animationOption= {{section.settings.image_behaviour}}
+    // var easingOption=animationOption === 'Ambient Movement'? 'cubic-bezier(0.25, 1, 0.5, 1)': ''
+    
+    // var slideHeightInput= {{section.settings.slide_height}}
+
+    // console.log(slideHeightInput)
+
+
+// ⭐ TODO: check easing option
+// ⭐ TODO: Slide height
+// ⭐ TODO: Image behaviour
+
+
     new Splide('.splide', {
-        type: "loop",
-        autoplay: document.querySelector('.splide').dataset.sliderAutoRotate,
-        interval: parseInt(document.querySelector('.splide').dataset.sliderTiming), classes: {
+        type:"loop",
+        autoplay:isAutoRotate,
+        interval: parseInt(document.querySelector('.splide').dataset.sliderTiming),
+        classes: {
             arrows: 'splide__arrows custom__arrows',
             prev: 'splide__arrow--prev custom__arrows-prev',
             next: 'splide__arrow--next custom__arrows-next',
         },
-        pagination:false,
+        pagination:true,
+        easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
 
     }).mount();
-
-
 
      // Custom pagination rendering
         var paginationElement = document.querySelector('.splide__pagination');
@@ -182,11 +199,16 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                         "value":"adapt to first image", "label":"Adapt to first image"
                     },
                     {
-                        "value":"small","label":"Small"
+                        "value":"small", "label":"Small"
                     },
-                    {"value": "medium","label":"Medium"},
-                    {"value": "large","label":"Large"}
-                ]
+                    {
+                        "value": "medium", "label":"Medium"
+                    },
+                    {
+                        "value": "large", "label":"Large"
+                    }
+                ],
+                "default": "medium"
             },
             {
                 "type": "select",
@@ -222,17 +244,18 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
             "content": "Animations"
              },
              {
-                "type": "select",
-                "id": "image_behaviour",
-                "label": "Image Behaviour",
-                "options": [
-                    {
-                        "value": "none", "label":"None"
-                    },
-                    {
-                        "value": "ambient movement","label":"Ambient Movement"
-                    }
-                ]
+            "type": "select",
+            "id": "image_behaviour",
+            "label": "Image Behaviour",
+            "options": [
+                {
+                    "value": "none", "label":"None"
+                },
+                {
+                    "value": "ambient movement","label":"Ambient Movement"
+                }
+            ],
+            "default": "none"
              }
      
         ],
