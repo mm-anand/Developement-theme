@@ -1,6 +1,152 @@
-<div class=""></div>
+
+{% comment %} Getting the images from the product selected. {% endcomment %}
+{% assign beforeImageUrl = section.settings.product.media[0] |  image_url %}
+{% assign afterImageUrl = section.settings.product.media[1] |  image_url %}
 
 
+
+<link rel="stylesheet" href="{{'image-comparison.css' |  asset_url }}">
+
+<div class="container">
+    {% comment %} {{section.settings.product.title}} {% endcomment %}
+    <div class="section-header_item">
+        <div class="subtitle">New Arrivals</div>
+        <div class="section-header_title_block">
+            <h2 class="section-header_title">Check out our new items</h2>
+            <a href="/collections/basic-collection" class="new-arrivals-link">
+                <span class="new-arrivals-text">SHOP NEW ARRIVALS</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% if beforeImageUrl != blank and afterImageUrl != blank %}
+<div class="image-container">
+    <div id="page">
+        <div class="wrapper">
+            <div class="before">
+                <img class="content-image" src="{{beforeImageUrl}}"
+                    draggable="false" />
+            </div>
+            <div class="after">
+                <img class="content-image" src="{{afterImageUrl}}"
+                    draggable="false" />
+            </div>
+            <div class="scroller">
+                <svg class="scroller-svg"  id="Layer_1" version="1.1" viewBox="0 0 512 512"
+                    width=100 xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g>
+                        <path
+                            d="M224,435.8V76.1c0-6.7-5.4-12.1-12.2-12.1h-71.6c-6.8,0-12.2,5.4-12.2,12.1v359.7c0,6.7,5.4,12.2,12.2,12.2h71.6   C218.6,448,224,442.6,224,435.8z" />
+                        <path
+                            d="M371.8,64h-71.6c-6.7,0-12.2,5.4-12.2,12.1v359.7c0,6.7,5.4,12.2,12.2,12.2h71.6c6.7,0,12.2-5.4,12.2-12.2V76.1   C384,69.4,378.6,64,371.8,64z" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% comment %} ⭐Column- Gap not accurately working {% endcomment %}
+
+<section class="product-review-section">
+    <div class="product-review-wrapper">
+        <div class="product-review-image">
+            {% comment %} Change the image on hover. {% endcomment %}
+            <img src="{{beforeImageUrl}}" alt="product-image" class="product-review-image-img">
+            <button class="quick-view-button">
+                <span>Quick View</span>  <svg class="icon icon-button-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_2071_16434)">
+                                            <path d="M2.24268 12.2427L12.1422 2.34326" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+                                            </path>
+                                            <path d="M4.36377 1.63617H12.8491V10.1215" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+                                            </path>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_2071_16434">
+                                                <rect width="14" height="14" fill="currentColor"></rect>
+                                            </clipPath>
+                                        </defs>
+                                    </svg></button>
+        </div>
+        <div class="product-review-info">
+        <p>Theme Name</p>
+        <p class="product-review-info-title">{{section.settings.product.title}}</p>
+        <p>{{section.settings.product.price |  money_with_currency}}</p>
+        </div>
+    </div>
+</section>
+{% comment %} </div> {% endcomment %}
+
+<script>
+
+
+    let active = false;
+
+    // First we'll have to set up our event listeners
+    // We want to watch for clicks on our scroller
+    document.querySelector('.scroller').addEventListener('mousedown',function(){
+    active = true;
+    // Add our scrolling class so the scroller has full opacity while active
+    document.querySelector('.scroller').classList.add('scrolling');
+    });
+    // We also want to watch the body for changes to the state,
+    // like moving around and releasing the click
+    // so let's set up our event listeners
+    document.body.addEventListener('mouseup',function(){
+    active = false;
+    document.querySelector('.scroller').classList.remove('scrolling');
+    });
+    document.body.addEventListener('mouseleave',function(){
+    active = false;
+    document.querySelector('.scroller').classList.remove('scrolling');
+    });
+
+    // Let's figure out where their mouse is at
+    document.body.addEventListener('mousemove',function(e){
+    if (!active) return;
+    // Their mouse is here...
+    let x = e.pageX;
+    // but we want it relative to our wrapper
+    x -= document.querySelector('.wrapper').getBoundingClientRect().left;
+    // Okay let's change our state
+    scrollIt(x);
+    });
+
+    // Let's use this function
+    function scrollIt(x){
+    let transform = Math.max(0,(Math.min(x,document.querySelector('.wrapper').offsetWidth)));
+    document.querySelector('.after').style.width = transform+"px";
+    document.querySelector('.scroller').style.left = transform-25+"px";
+    }
+
+    // Let's set our opening state based off the width,
+    // we want to show a bit of both images so the user can see what's going on
+    scrollIt(150);
+
+    // And finally let's repeat the process for touch events
+    // first our middle scroller...
+    document.querySelector('.scroller').addEventListener('touchstart',function(){
+    active = true;
+    document.querySelector('.scroller').classList.add('scrolling');
+    });
+    document.body.addEventListener('touchend',function(){
+    active = false;
+    document.querySelector('.scroller').classList.remove('scrolling');
+    });
+    document.body.addEventListener('touchcancel',function(){
+    active = false;
+    document.querySelector('.scroller').classList.remove('scrolling');
+    });
+
+
+    //⭐ Changing image on hover on product-review-section
+    // let productImage= document.querySelector('.product-review-image-img')
+    // document.querySelector('.product-review-section').addEventListener('mouseover',function(){
+    //     console.log({{afterImageUrl}})
+    //     productImage.src={{afterImageUrl}}
+    // })
+</script>
 
 
 {% schema %}
@@ -10,14 +156,14 @@
     "class": "image-comparison",
     "settings": [
         {
-            "type": "image_picker",
-            "id": "before_image",
-            "label": "Before Image"
-        },
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+        }
+    ],
+    "presets": [
         {
-            "type": "image_picker",
-            "id": "after_image",
-            "label": "After Image"
+        "name": "Image Comparison Section"
         }
     ]
 

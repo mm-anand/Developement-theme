@@ -18,20 +18,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
 <link href="
 https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
 " rel="stylesheet">
-<style>
-    /* .heading{
-        color:{{section.blocks.settings.heading_text_color}};
-    
-    }
-    .description {
-        color:{{section.blocks.settings.description_text_color}}
-    }
-    .hero-banner-button{
-        background-color: {{section.blocks.settings.button_bg}};
-        color:{{section.blocks.settings.button_text_color}}
-    } */
 
-</style>
 
 {% assign timing = section.settings.change_slides_timing | times: 1000 %}
 {% comment %} {% assign autoRotate= section.settings.auto_rotate_slides %} {% endcomment %}
@@ -99,6 +86,42 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                     </div>
                 </div>
             </div>
+            <style>
+                .heading {
+                    color: {
+                            {
+                            section.blocks.settings.heading_text_color
+                        }
+                    }
+            
+                    ;
+            
+                }
+            
+                .description {
+                    color: {
+                            {
+                            section.blocks.settings.description_text_color
+                        }
+                    }
+                }
+            
+                .hero-banner-button {
+                    background-color: {
+                            {
+                            section.blocks.settings.button_bg
+                        }
+                    }
+            
+                    ;
+            
+                    color: {
+                            {
+                            section.blocks.settings.button_text_color
+                        }
+                    }
+                }
+            </style>
             {% endfor %}
         </ul>
     
