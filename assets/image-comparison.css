@@ -65,7 +65,7 @@
   /* column-gap: 32px; */
   max-width: 1840px;
   padding: 0 2rem;
-  margin: 20px 0;
+  margin: 50px 0;
 }
 
 /* Image comparison part */
@@ -174,24 +174,25 @@
   fill: black;
 }
 .product-review-section {
-  max-width: 40%;
   height: 466.6px;
-  cursor: pointer;
+  width: 50%;
   transition: all 0.25s ease;
   margin-right: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.product-review-section:hover {
+.product-review-wrapper:hover {
   .quick-view-button {
     display: flex;
   }
 }
 .product-review-wrapper {
-  width: 100%;
-  /* border: 2px solid; */
-  height: 100%;
+  width: 60%;
+  height: auto;
   display: flex;
-  /* position: relative; */
+  cursor: pointer;
   flex-direction: column;
 }
 

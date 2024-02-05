@@ -1,17 +1,58 @@
-<link rel="stylesheet" href="{{'multiple-product-review.css' |  asset_url }}">
+{% assign beforeImageUrl = section.settings.product.media[0] | image_url %}
+{% assign afterImageUrl = section.settings.product.media[1] | image_url %}
 
+<link rel="stylesheet" href="{{'multiple-product-review.css' |  asset_url }}">
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js">
+</script>
+<link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
 
 <div class="product-container">
   <div class="product-image-section">
     <div class="product-image">
-      <img src="https://berlin-lifestyle.myshopify.com/cdn/shop/files/Rectangle28.jpg?v=1690369253&width=2000" alt="product-image" class="product-image">
+      <img
+        src="https://berlin-lifestyle.myshopify.com/cdn/shop/files/Rectangle28.jpg?v=1690369253&width=2000"
+        alt="product-image"
+        class="product-image">
     </div>
   </div>
-  <div class="product-slider-section"></div>
+
+  <div class="product-slider-section">
+    <section class="splide" aria-label="Splide Basic HTML Example">
+  <div class="splide__track">
+		<ul class="splide__list">
+			<li class="splide__slide">Slide 01</li>
+			<li class="splide__slide">Slide 02</li>
+			<li class="splide__slide">Slide 03</li>
+		</ul>
+  </div>
+</section>
+  </div>
 </div>
+
+<script>
+    var splide= new Splide('.splide', {
+        type:"loop",
+        perpage:1,
+        pagination:true,
+        easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+  
+    });
+  
+    splide.mount()
+</script>
 
 {% schema %}
   {
+    "tag": "section",
+    "name": "Multiple-Products review",
+    "class": "multplie-products-review",
+    "settings": [
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Product"
+      }
+    ],
     "presets": [
       {
         "name": "Multiple Products Review"

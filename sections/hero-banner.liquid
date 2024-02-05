@@ -1,20 +1,20 @@
 {% comment %} {% liquid
-assign desktopImage = section.blocks.settings.desktop_image
-assign mobileImage = section.blocks.settings.mobile_image
-assign heading = section.blocks.settings.heading
-assign description = section.blocks.settings.description
-assign buttonLink = section.blocks.settings.button_link
-assign buttonText = section.blocks.settings.button_text
-
+      assign desktopImage = section.blocks.settings.desktop_image
+      assign mobileImage = section.blocks.settings.mobile_image
+      assign heading = section.blocks.settings.heading
+      assign description = section.blocks.settings.description
+      assign buttonLink = section.blocks.settings.button_link
+      assign buttonText = section.blocks.settings.button_text
+      
 %} {% endcomment %}
-
 
 
 <link rel="stylesheet" href="{{'hero-banner.css' |  asset_url }}">
 
 <script src="
 https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
-"></script>
+">
+</script>
 <link href="
 https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
 " rel="stylesheet">
@@ -22,115 +22,151 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
 
 {% assign timing = section.settings.change_slides_timing | times: 1000 %}
 {% comment %} {% assign autoRotate= section.settings.auto_rotate_slides %} {% endcomment %}
-{% assign ambientMovement=section.settings.image_behaviour %}
+{% assign ambientMovement = section.settings.image_behaviour %}
 
 <div class="{{section.settings.layout}}">
-<section class="splide" aria-label="Splide Basic HTML Example" data-slider-timing="{{ timing }}" data-slider-ambientMovement="{{ambientMovement}}">
+  <section
+    class="splide"
+    aria-label="Splide Basic HTML Example"
+    data-slider-timing="{{ timing }}"
+    data-slider-ambientMovement="{{ambientMovement}}">
 
-{% comment %} Adding custom arrows: {% endcomment %}
+    {% comment %} Adding custom arrows: {% endcomment %}
     <div class="splide__arrows custom__arrows">
-        <button class="splide__arrow splide__arrow--prev custom__arrow--prev">
-      <svg width="27" height="22" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2 14L26 14" stroke="currentColor" stroke-width="3" stroke-linecap="square"></path>
-                    <path d="M17.6514 3L29.6514 14L17.6514 25" stroke="currentColor" stroke-width="3" stroke-linecap="square">
-                    </path>
-                </svg>
-        </button>
-        <button class="splide__arrow splide__arrow--next custom__arrow--next">
-            <svg width="27" height="22" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2 14L26 14" stroke="currentColor" stroke-width="3" stroke-linecap="square"></path>
-                    <path d="M17.6514 3L29.6514 14L17.6514 25" stroke="currentColor" stroke-width="3" stroke-linecap="square">
-                    </path>
-                </svg>
-        </button>
+      <button class="splide__arrow splide__arrow--prev custom__arrow--prev">
+        <svg
+          width="27"
+          height="22"
+          viewBox="0 0 32 28"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M2 14L26 14"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="square"></path>
+          <path
+            d="M17.6514 3L29.6514 14L17.6514 25"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="square"></path>
+        </svg>
+      </button>
+      <button class="splide__arrow splide__arrow--next custom__arrow--next">
+        <svg
+          width="27"
+          height="22"
+          viewBox="0 0 32 28"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M2 14L26 14"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="square"></path>
+          <path
+            d="M17.6514 3L29.6514 14L17.6514 25"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="square"></path>
+        </svg>
+      </button>
     </div>
-    {{section.settings.slide_height}}
+    {% comment %} ⭐Working: {{section.settings.slide_height}} {% endcomment %}
     <div class="splide__track">
-        <ul class="splide__list">
-            {% for block in section.blocks %}
-            <div class="hero-banner-wrapper position-rel splide__slide">
-                <div class="hero-image-wrapper">
-                    {% render 'responsive-picture', class:'hero-banner-image', desktopImage:block.settings.desktop_image,
-                    mobileImage:block.settings.mobile_image %}
-                </div>
-                <div class="hero-content-wrapper position-abs {{block.settings.text_alignment}} hero-content-flex-wrap">
-                    <div class="hero-content">
-                        <h2 class="heading">{{block.settings.heading}}</h2>
-                        <div class="description">{{block.settings.description}}</div>
-            
-
-                        <button class="hero-banner-button-wrapper">
-                        <a href="{{block.settings.button_link}}" class="hero-banner-button">
-            
-                                <span class="hero-banner-button-text">{{block.settings.button_text}}</span>
-                                <span>
-                                
-                                    <svg class="icon icon-button-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_2071_16434)">
-                                            <path d="M2.24268 12.2427L12.1422 2.34326" stroke="currentColor" stroke-width="2" stroke-linecap="square">
-                                            </path>
-                                            <path d="M4.36377 1.63617H12.8491V10.1215" stroke="currentColor" stroke-width="2" stroke-linecap="square">
-                                            </path>
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_2071_16434">
-                                                <rect width="14" height="14" fill="currentColor"></rect>
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                </button>
-                                </span>
-                        </a>
-            
-                    </div>
-                </div>
+      <ul class="splide__list">
+        {% for block in section.blocks %}
+          <div class="hero-banner-wrapper position-rel splide__slide">
+            <div class="hero-image-wrapper">
+              {% render 'responsive-picture', class: 'hero-banner-image', desktopImage: block.settings.desktop_image,
+                mobileImage: block.settings.mobile_image %}
             </div>
-            <style>
-                .heading {
-                    color: {
-                            {
-                            section.blocks.settings.heading_text_color
-                        }
-                    }
-            
-                    ;
-            
-                }
-            
-                .description {
-                    color: {
-                            {
-                            section.blocks.settings.description_text_color
-                        }
-                    }
-                }
-            
-                .hero-banner-button {
-                    background-color: {
-                            {
-                            section.blocks.settings.button_bg
-                        }
-                    }
-            
-                    ;
-            
-                    color: {
-                            {
-                            section.blocks.settings.button_text_color
-                        }
-                    }
-                }
-            </style>
-            {% endfor %}
-        </ul>
-    
-    </div>
-    <div class="splide__pagination">
-    </div>
-</section>
+            <div class="hero-content-wrapper position-abs {{block.settings.text_alignment}} hero-content-flex-wrap">
+              <div class="hero-content">
+                <h2 class="heading">{{ block.settings.heading }}</h2>
+                <div class="description">{{ block.settings.description }}</div>
 
-    
+
+                <button class="hero-banner-button-wrapper">
+                  <a href="{{block.settings.button_link}}" class="hero-banner-button">
+
+                    <span class="hero-banner-button-text">{{ block.settings.button_text }}</span>
+                    <span>
+
+                      <svg
+                        class="icon icon-button-arrow"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 14 14"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_2071_16434)">
+                          <path
+                            d="M2.24268 12.2427L12.1422 2.34326"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="square"></path>
+                          <path
+                            d="M4.36377 1.63617H12.8491V10.1215"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="square"></path>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_2071_16434">
+                            <rect
+                              width="14"
+                              height="14"
+                              fill="currentColor"></rect>
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </button>
+                  </span>
+                </a>
+
+              </div>
+            </div>
+          </div>
+          <style>
+            .heading {
+              color: {
+              {
+              section.blocks.settings.heading_text_color
+            }
+          };
+
+        }
+
+        .description {
+          color: {
+          {
+          section.blocks.settings.description_text_color
+        }
+      }
+    }
+
+    .hero-banner-button {
+      background-color: {
+      {
+      section.blocks.settings.button_bg
+    }
+  }
+  color: {
+  {
+  section.blocks.settings.button_text_color
+}
+}
+}
+          </style>
+        {% endfor %}
+      </ul>
+
+    </div>
+    <div class="splide__pagination"></div>
+  </section>
+
+
 </div>
 <script>
     
@@ -141,15 +177,15 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
     // var easingOption=animationOption === 'Ambient Movement'? 'cubic-bezier(0.25, 1, 0.5, 1)': ''
     
     // var slideHeightInput= {{section.settings.slide_height}}
-
+  
     // console.log(slideHeightInput)
-
-
-// ⭐ TODO: check easing option
-// ⭐ TODO: Slide height
-// ⭐ TODO: Image behaviour
-
-
+  
+  
+  // ⭐ TODO: check easing option
+  // ⭐ TODO: Slide height
+  // ⭐ TODO: Image behaviour
+  
+  
     new Splide('.splide', {
         type:"loop",
         autoplay:isAutoRotate,
@@ -161,26 +197,26 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
         },
         pagination:true,
         easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
-
+  
     }).mount();
-
-     // Custom pagination rendering
+  
+     // Custom pagination rendering ⭐ Not working
         var paginationElement = document.querySelector('.splide__pagination');
         var slidesCount = splide.length;
-
+  
         for (var i = 1; i <= slidesCount; i++) {
             var pageElement = document.createElement('div');
             pageElement.className = 'splide__pagination__page';
             pageElement.textContent = i;
             paginationElement.appendChild(pageElement);
-
+  
             // Handle click event to move to the corresponding slide
             pageElement.addEventListener('click', function (event) {
                 var pageNumber = parseInt(event.target.textContent);
                 splide.go(pageNumber - 1); // Splide indices are zero-based
             });
         }
-
+  
         // Update pagination on slide change
         splide.on('moved', function (index) {
             var paginationPages = document.querySelectorAll('.splide__pagination__page');
@@ -188,191 +224,209 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                 page.classList.toggle('splide__pagination__page--active', index === pageIndex);
             });
         });
-
-
 </script>
 
 
 {% schema %}
-    {
-        "name":"Hero-Banner",
-        "tag":"section",
-        "class":"hero-banner",
-        "settings":[
-            {
-                "type":"select",
-                "id":"layout",
-                "label":"Layout",
-                "options":[
-                    {
-                        "value":"full-width", "label":"Full width"
-                        },
-                    {
-                        "value": "page-width", "label":"Grid" 
-                    }
-                ],
-                "default":"page-width"
-            },
-            {
-                "type": "select",
-                "id":"slide_height",
-                "label":"Slide height",
-                "options": [
-                    {
-                        "value":"adapt to first image", "label":"Adapt to first image"
-                    },
-                    {
-                        "value":"small", "label":"Small"
-                    },
-                    {
-                        "value": "medium", "label":"Medium"
-                    },
-                    {
-                        "value": "large", "label":"Large"
-                    }
-                ],
-                "default": "medium"
-            },
-            {
-                "type": "select",
-                "id": "pagination_style",
-                "label": "Pagination style",
-                "options": [
-                    {
-                        "value":"dots","label":"Dots"
-                    },
-                    {
-                        "value": "counter","label":"Counter"
-                    },
-                    {"value": "number","label":"Number"}
-                ]
-            },
-            {
-                "type": "checkbox",
-                "id": "auto_rotate_slides",
-                "label": "Auto-rotate slides"
-            },
-            {
-                "type":"range",
-                "id": "change_slides_timing",
-                "label": "Change slides every",
-                "min": 3,
-                "max": 9,
-                "step": 1,
-                "unit": "sec",
-                "default": 5
-            },
-            {
-            "type": "header",
-            "content": "Animations"
-             },
-             {
-            "type": "select",
-            "id": "image_behaviour",
-            "label": "Image Behaviour",
-            "options": [
-                {
-                    "value": "none", "label":"None"
-                },
-                {
-                    "value": "ambient movement","label":"Ambient Movement"
-                }
-            ],
-            "default": "none"
-             }
-     
+  {
+    "name": "Hero-Banner",
+    "tag": "section",
+    "class": "hero-banner",
+    "settings": [
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "full-width",
+            "label": "Full width"
+          }, {
+            "value": "page-width",
+            "label": "Grid"
+          }
         ],
-    "blocks": [
-        
-    {
-    "type":"heading",
-    "name":"hero-banner-block",
-    "settings":[
-    {
-    "type":"image_picker",
-    "id":"desktop_image",
-    "label":"Desktop Image"
-    },
-    {
-    "type":"image_picker",
-    "id":"mobile_image",
-    "label":"Mobile Image"
-    },
-    {
-    "type":"text",
-    "id":"heading",
-    "label":"Heading",
-    "placeholder":"Enter your heading title",
-    "default":"John Wick 3 : Parabellum"
-    },
-    {
-    "type": "color",
-    "id":"heading_text_color",
-    "label":"Heading Text Color",
-    "default":"#ffffff"
-    },
-    
-    {
-    "type":"richtext",
-    "id":"description",
-    "label":"Description",
-    "default":"<p>John Wick is on the run after killing a member of the international assassins' guild, and with a $14 million price tag on his head, he is the target of hit men and women everywhere.</p>"
-    },
-    {
-    "type": "color",
-    "id":"description_text_color",
-    "label":"Description Text Color",
-    "default":"#ffffff"
-    },
-    {
-    "type":"url",
-    "id":"button_link",
-    "label":"Button Link",
-    "default":"/collections"
-    },
-    {
-    "type":"text",
-    "id":"button_text",
-    "label":"Button Text",
-    "default":"Watch Trailer"
-    },
-    {
-    "type":"color",
-    "id":"button_bg",
-    "label":"Button Background Color",
-    "default":"rgb(46,46,46)"
-    },
-    {
-    "type":"color",
-    "id":"button_text_color",
-    "label":"Button Text Color",
-    "default":"#FFFFFF"
-    },
-    {
-    "type": "select",
-    "label": "Text Alignment",
-    "id": "text_alignment",
-    "options": [
-    { "value": "top-left", "label": "Top-Left" },
-    { "value": "top-center", "label": "Top-Center" },
-    { "value": "top-right", "label": "Top-Right" },
-    { "value": "center-left", "label": "Center-Left"},
-    { "value": "center", "label": "Center"},
-    { "value": "center-right", "label": "Center-Right"},
-    { "value": "bottom-left", "label": "Bottom-Left"},
-    { "value": "bottom-center", "label": "Bottom-Center"},
-    { "value": "bottom-right", "label": "Bottom-Right"}
+        "default": "page-width"
+      },
+      {
+        "type": "select",
+        "id": "slide_height",
+        "label": "Slide height",
+        "options": [
+          {
+            "value": "adapt to first image",
+            "label": "Adapt to first image"
+          }, {
+            "value": "small",
+            "label": "Small"
+          }, {
+            "value": "medium",
+            "label": "Medium"
+          }, {
+            "value": "large",
+            "label": "Large"
+          }
+        ],
+        "default": "medium"
+      },
+      {
+        "type": "select",
+        "id": "pagination_style",
+        "label": "Pagination style",
+        "options": [
+          {
+            "value": "dots",
+            "label": "Dots"
+          }, {
+            "value": "counter",
+            "label": "Counter"
+          }, {
+            "value": "number",
+            "label": "Number"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "auto_rotate_slides",
+        "label": "Auto-rotate slides"
+      }, {
+        "type": "range",
+        "id": "change_slides_timing",
+        "label": "Change slides every",
+        "min": 3,
+        "max": 9,
+        "step": 1,
+        "unit": "sec",
+        "default": 5
+      }, {
+        "type": "header",
+        "content": "Animations"
+      }, {
+        "type": "select",
+        "id": "image_behaviour",
+        "label": "Image Behaviour",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          }, {
+            "value": "ambient movement",
+            "label": "Ambient Movement"
+          }
+        ],
+        "default": "none"
+      }
+
     ],
-    "default": "center"
-    }
+    "blocks": [
 
-    ]
-        }
-           
-        ],"presets": [{
+      {
+        "type": "heading",
+        "name": "hero-banner-block",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "desktop_image",
+            "label": "Desktop Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "mobile_image",
+            "label": "Mobile Image"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "placeholder": "Enter your heading title",
+            "default": "John Wick 3 : Parabellum"
+          },
+          {
+            "type": "color",
+            "id": "heading_text_color",
+            "label": "Heading Text Color",
+            "default": "#ffffff"
+          }, {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>John Wick is on the run after killing a member of the international assassins' guild, and with a $14 million price tag on his head, he is the target of hit men and women everywhere.</p>"
+          }, {
+            "type": "color",
+            "id": "description_text_color",
+            "label": "Description Text Color",
+            "default": "#ffffff"
+          }, {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button Link",
+            "default": "/collections"
+          }, {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text",
+            "default": "Watch Trailer"
+          }, {
+            "type": "color",
+            "id": "button_bg",
+            "label": "Button Background Color",
+            "default": "rgb(46,46,46)"
+          }, {
+            "type": "color",
+            "id": "button_text_color",
+            "label": "Button Text Color",
+            "default": "#FFFFFF"
+          }, {
+            "type": "select",
+            "label": "Text Alignment",
+            "id": "text_alignment",
+            "options": [
+              {
+                "value": "top-left",
+                "label": "Top-Left"
+              },
+              {
+                "value": "top-center",
+                "label": "Top-Center"
+              },
+              {
+                "value": "top-right",
+                "label": "Top-Right"
+              },
+              {
+                "value": "center-left",
+                "label": "Center-Left"
+              }, {
+                "value": "center",
+                "label": "Center"
+              }, {
+                "value": "center-right",
+                "label": "Center-Right"
+              }, {
+                "value": "bottom-left",
+                "label": "Bottom-Left"
+              }, {
+                "value": "bottom-center",
+                "label": "Bottom-Center"
+              }, {
+                "value": "bottom-right",
+                "label": "Bottom-Right"
+              }
+            ],
+            "default": "center"
+          }
+
+        ]
+      }
+
+    ],
+    "presets": [
+      {
         "name": "Hero Banner Block"
-        }]
-        
+      }
+    ]
 
-    }
+
+  }
 {% endschema %}
